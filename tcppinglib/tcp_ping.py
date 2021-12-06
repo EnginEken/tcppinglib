@@ -233,4 +233,4 @@ def tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interv
         packets_sent += 1
         
             
-    return TcpHost(address, port, packets_sent, packet_lost, rtt_times, ssl_version, path_response_code, daysToExpiration)
+    return TcpHost(address, port, packets_sent, packet_lost, rtt_times, ssl_version, path_response_code, daysToExpiration, resolved_ips)

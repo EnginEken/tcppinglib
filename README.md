@@ -93,3 +93,8 @@ tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: 
 
     - Type: `bool`
     - Default: `False`
+
+#### Return Value
+
+- A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
+`ip_address`, `port`, `ssl_version`, `req_resp`, `cert_expire`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt_all`, `avg_rtt_all`, `max_rtt_all`, `min_rtt_dns`, `avg_rtt_dns`, `max_rtt_dns`, `min_rtt_conn`, `avg_rtt_conn`, `max_rtt_conn`, `min_rtt_sslconn`, `avg_rtt_sslconn`, `max_rtt_sslconn`, `min_rtt_req`, `avg_rtt_req`, `max_rtt_req`
