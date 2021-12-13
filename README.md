@@ -3,7 +3,7 @@
 <div align="center">
   <br>
   <br>
-  <img src="media/TcpPingLib.png" height="340" width="817" alt="icmplib">
+  <img src="media/TcpPingLib.png" height="340" width="817" alt="TcpPingLib Logo">
   <br>
   <br>
 </div>

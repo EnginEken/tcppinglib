@@ -111,7 +111,8 @@ async def async_tcpping(address, port: int = 443, timeout: float = 2, count: int
                 ssock.close()
             except UnboundLocalError:
                 pass
-        except:
+        except TcppingLibError:
+            resolved_ips = ''
             packet_lost += 1
             pass
         
@@ -225,7 +226,8 @@ def tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interv
                 ssock.close()
             except UnboundLocalError:
                 pass
-        except:
+        except TcppingLibError:
+            resolved_ips = ''
             packet_lost += 1
             pass
         
