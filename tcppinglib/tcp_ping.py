@@ -1,9 +1,11 @@
 import asyncio
+import logging
 import time
 import ssl
 import socket
 import warnings
 import datetime
+import sys
 
 from time import sleep
 from .utils import *
@@ -75,7 +77,7 @@ async def async_tcpping(address, port: int = 443, timeout: float = 2, count: int
                     is_certified = True
 
                 except ssl.SSLError:
-                    warnings.warn(SslConnectionError(port, address))
+                    warnings.warn(SslConnectionError(address))
                     network_sock = ssl.wrap_socket(network_sock)
                     rtt_times['ssl_conn'].append(time.perf_counter() - start_times['ssl_conn'])
                     ssl_version = network_sock.version()
@@ -111,10 +113,13 @@ async def async_tcpping(address, port: int = 443, timeout: float = 2, count: int
                 ssock.close()
             except UnboundLocalError:
                 pass
-        except TcppingLibError:
+        except Exception as e:
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            print("Exception type : %s " % ex_type.__name__)
+            print("Exception message : %s" %ex_value)
             resolved_ips = ''
             packet_lost += 1
-            pass
+            break
         
         count -= 1
         packets_sent += 1
@@ -190,7 +195,7 @@ def tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interv
                     is_certified = True
 
                 except ssl.SSLError:
-                    warnings.warn(SslConnectionError(port, address))
+                    warnings.warn(SslConnectionError(address))
                     network_sock = ssl.wrap_socket(network_sock)
                     rtt_times['ssl_conn'].append(time.perf_counter() - start_times['ssl_conn'])
                     ssl_version = network_sock.version()
@@ -226,10 +231,13 @@ def tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interv
                 ssock.close()
             except UnboundLocalError:
                 pass
-        except TcppingLibError:
+        except Exception as e:
+            ex_type, ex_value, ex_traceback = sys.exc_info()
+            print("Exception type : %s " % ex_type.__name__)
+            print("Exception message : %s" %ex_value)
             resolved_ips = ''
             packet_lost += 1
-            pass
+            break
         
         count -= 1
         packets_sent += 1
