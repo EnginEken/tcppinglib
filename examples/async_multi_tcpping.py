@@ -21,10 +21,10 @@ urls = [
     '1.1.1.1'
     ]
 
-hosts = asyncio.run(async_multi_tcpping(urls, count=5, interval=1.5))
+hosts = asyncio.run(async_multi_tcpping(urls, interval=1.5))
 
 for host in hosts:
-    print(host.is_alive, host.avg_rtt_all)
+    print(host.is_alive, host.avg_rtt)
 
 # True 226.72
 # True 62.649

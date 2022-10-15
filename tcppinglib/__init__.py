@@ -4,7 +4,7 @@
     
     Monitor your endpoints with TCP Ping.
 
-        https://github.com/ValentinBELYN/icmplib
+        https://github.com/EnginEken/tcppinglib
     
     :copyright: Copyright 2021-2026 Engin EKEN.
     :license: GNU LGPLv3, see the LICENSE for details.
@@ -28,7 +28,7 @@ from .exceptions import *
 from .tcp_ping import tcpping, async_tcpping
 from .tcp_multiping import multi_tcpping, async_multi_tcpping
 from .models import TcpHost
-from .utils import is_ipv4, url_parse
+from .utils import is_hostname, is_ipv6, strip_http_https
 from .utils import hostname_lookup, async_hostname_lookup
 
 
@@ -36,4 +36,4 @@ __author__    = 'Engin EKEN'
 __copyright__ = 'Copyright 2021-2026 Engin EKEN'
 __license__   = 'GNU Lesser General Public License v3.0'
 
-__version__   = '0.0.1'
+__version__   = '2.0.2'

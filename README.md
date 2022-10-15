@@ -24,7 +24,7 @@ It is not only measuring connection overall time to the web server, but also mea
 - :mechanical_leg: **IPv6 Support:** You can use TcpPingLib with the URLs with IPv6 address. You can also see the all resolved IP addresses for the specified address.
 - :rocket: **Fast:** Developed for best and fastest performance with async functions like `async_tcpping`, `async_multi_tcpping`.
 - :fire: **Built-in Properties:** Easily get the necessary information with the built-in models' properties about the TCP Ping which is sent.
-- :eyes: **Monitor:** Determine whether the host is online or not whenever `ping` is disabled or blocked, measure the latency, check if SSL connection can be done.
+- :eyes: **Monitor:** Determine whether the host is online or not whenever `ping` is disabled or blocked, measure the latency.
 - :hourglass: **Certificate Expire:** Check the days to certification expire date for the given URL if SSL connection can be established.
 - :gem: **Modern:** This library uses the latest mechanisms offered by Python 3.6/3.7+ and is fully object-oriented.
 
@@ -50,7 +50,7 @@ from tcppinglib import tcpping
 #### Function Parameters
 
 ```python
-tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: float = 3, ipv6: bool = False)
+tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: float = 3)
 ```
 
 - `address`
@@ -64,14 +64,14 @@ tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: 
     The number of packets which will be sent to `address`.
 
     - Type: `int`
-    - Default: `3`
+    - Default: `5`
 
 - `port`
 
     The TCP port number that packets will be sent to.
 
     - Type: `int`
-    - Default: `443`(HTTPS)
+    - Default: `80`(HTTP)
 
 - `timeout`
 
@@ -87,24 +87,17 @@ tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: 
     - Type: `float`
     - Default: `3` seconds
 
-- `ipv6`
-
-    Selection if you want to try resolving and sending tcp ping packets for ipv6 address of the URL.
-
-    - Type: `bool`
-    - Default: `False`
-
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `ssl_version`, `req_resp`, `cert_expire`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt_all`, `avg_rtt_all`, `max_rtt_all`, `min_rtt_dns`, `avg_rtt_dns`, `max_rtt_dns`, `min_rtt_conn`, `avg_rtt_conn`, `max_rtt_conn`, `min_rtt_sslconn`, `avg_rtt_sslconn`, `max_rtt_sslconn`, `min_rtt_req`, `avg_rtt_req`, `max_rtt_req`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
 
 #### Example
 
 ```python
 >>> from tcppinglib import tcpping
 
->>> host = tcpping('www.google.com:80', count=5, interval=1.5)
+>>> host = tcpping('www.google.com', interval=1.5)
 
 >>> host.is_alive           # Check whether host is responding
 True
@@ -112,20 +105,14 @@ True
 >>> host.ip_address         # Resolved ip addresses of the given url
 ['172.217.17.100']
 
->>> host.min_rtt_all        # Minimum round trip time for all process
+>>> host.min_rtt            # Minimum round trip time for all process
 15.532
 
->>> host.avg_rtt_dns        # Average round trip time for dns resolution
-3.575
-
->>> host.avg_rtt_all        # Average round trip time for all process
+>>> host.avg_rtt            # Average round trip time for all process
 18.789
 
 >>> host.packet_loss        # Percentage of packet loss
 0.0
-
->>> host.ssl_version        # SSL Version, it cant get the ssl version because the port number is 80
-'Cant Get SSL Version'
 
 >>> host.port               # Port number 
 80
@@ -144,7 +131,7 @@ from tcppinglib import multi_tcpping
 #### Function Parameters
 
 ```python
-multi_tcpping(addresses: list, port: int = 443, timeout: float = 2, count: int = 3, interval: float = 3, concurrent_tasks=50, ipv6: bool = False):
+multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50):
 ```
 
 - `address`
@@ -158,14 +145,14 @@ multi_tcpping(addresses: list, port: int = 443, timeout: float = 2, count: int =
     The number of packets which will be sent to `address`.
 
     - Type: `int`
-    - Default: `3`
+    - Default: `5`
 
 - `port`
 
     The TCP port number that packets will be sent to.
 
     - Type: `int`
-    - Default: `443`(HTTPS)
+    - Default: `80`(HTTP)
 
 - `timeout`
 
@@ -188,39 +175,29 @@ multi_tcpping(addresses: list, port: int = 443, timeout: float = 2, count: int =
     - Type: `int`
     - Default: `50`
 
-- `ipv6`
-
-    Selection if you want to try resolving and sending tcp ping packets for ipv6 address of the URL.
-
-    - Type: `bool`
-    - Default: `False`
-
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `ssl_version`, `req_resp`, `cert_expire`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt_all`, `avg_rtt_all`, `max_rtt_all`, `min_rtt_dns`, `avg_rtt_dns`, `max_rtt_dns`, `min_rtt_conn`, `avg_rtt_conn`, `max_rtt_conn`, `min_rtt_sslconn`, `avg_rtt_sslconn`, `max_rtt_sslconn`, `min_rtt_req`, `avg_rtt_req`, `max_rtt_req`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
 
 #### Example
 
 ```python
 >>> from tcppinglib import multi_tcpping
 
->>> hosts = multi_tcpping(['www.google.com:80', 'https://www.python.org/', 'http://cnn.com'], count=5, interval=1.5, concurrent_tasks=20)
+>>> hosts = multi_tcpping(['www.google.com', 'https://www.python.org/', 'http://cnn.com'], interval=1.5, concurrent_tasks=20)
 
 >>> [host.is_alive for host in hosts]                               # Check whether hosts are responding respectively
 [True, True, True]
 
->>> [host.avg_rtt_all for host in hosts]                            # Averate round trip times list for whole process.
+>>> [host.avg_rtt for host in hosts]                                # Averate round trip times list for whole process.
 [88.602, 279.328, 131.029]
-
->>> [host.ssl_version for host in hosts]                            # SSL Version, it cant get the ssl version if the port number is 80
-['Cant Get SSL Version', 'TLSv1.3', 'Cant Get SSL Version']
 
 >>> [host.ip_address for host in hosts]                             # Resolved ip addresses list
 [['172.217.169.100'], ['151.101.12.223'], ['151.101.193.67', '151.101.65.67', '151.101.1.67', '151.101.129.67']]
 
 >>> [host.port for host in hosts]                                   # Port Number
-[80, 443, 80]
+[80, 80, 80]
 ```
 
 <br>
@@ -238,7 +215,7 @@ from tcppinglib import async_tcpping
 #### Function Parameters
 
 ```python
-async_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: float = 3, ipv6: bool = False)
+async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3)
 ```
 
 - `address`
@@ -252,14 +229,14 @@ async_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, inte
     The number of packets which will be sent to `address`.
 
     - Type: `int`
-    - Default: `3`
+    - Default: `5`
 
 - `port`
 
     The TCP port number that packets will be sent to.
 
     - Type: `int`
-    - Default: `443`(HTTPS)
+    - Default: `80`(HTTP)
 
 - `timeout`
 
@@ -275,17 +252,10 @@ async_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, inte
     - Type: `float`
     - Default: `3` seconds
 
-- `ipv6`
-
-    Selection if you want to try resolving and sending tcp ping packets for ipv6 address of the URL.
-
-    - Type: `bool`
-    - Default: `False`
-
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `ssl_version`, `req_resp`, `cert_expire`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt_all`, `avg_rtt_all`, `max_rtt_all`, `min_rtt_dns`, `avg_rtt_dns`, `max_rtt_dns`, `min_rtt_conn`, `avg_rtt_conn`, `max_rtt_conn`, `min_rtt_sslconn`, `avg_rtt_sslconn`, `max_rtt_sslconn`, `min_rtt_req`, `avg_rtt_req`, `max_rtt_req`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
 
 #### Example
 
@@ -294,8 +264,8 @@ async_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, inte
 >>> from tcppinglib import async_tcpping
 
 >>> async def host_specs(address):
-...     host = await async_tcpping(address, count=5, interval=1.5)
-...     return host.is_alive, host.avg_rtt_all, host.packet_loss
+...     host = await async_tcpping(address, count=7, interval=1.5)
+...     return host.is_alive, host.avg_rtt, host.packet_loss
 ... 
 
 >>> asyncio.run(host_specs('https://www.google.com/'))
@@ -316,7 +286,7 @@ from tcppinglib import async_multi_tcpping
 #### Function Parameters
 
 ```python
-async_multi_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3, interval: float = 3, concurrent_tasks=50, ipv6: bool = False)
+async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50)
 ```
 
 - `address`
@@ -330,14 +300,14 @@ async_multi_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3
     The number of packets which will be sent to `address`.
 
     - Type: `int`
-    - Default: `3`
+    - Default: `5`
 
 - `port`
 
     The TCP port number that packets will be sent to.
 
     - Type: `int`
-    - Default: `443`(HTTPS)
+    - Default: `80`(HTTP)
 
 - `timeout`
 
@@ -360,17 +330,10 @@ async_multi_tcpping(address, port: int = 443, timeout: float = 2, count: int = 3
     - Type: `int`
     - Default: `50`
 
-- `ipv6`
-
-    Selection if you want to try resolving and sending tcp ping packets for ipv6 address of the URL.
-
-    - Type: `bool`
-    - Default: `False`
-
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `ssl_version`, `req_resp`, `cert_expire`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt_all`, `avg_rtt_all`, `max_rtt_all`, `min_rtt_dns`, `avg_rtt_dns`, `max_rtt_dns`, `min_rtt_conn`, `avg_rtt_conn`, `max_rtt_conn`, `min_rtt_sslconn`, `avg_rtt_sslconn`, `max_rtt_sslconn`, `min_rtt_req`, `avg_rtt_req`, `max_rtt_req`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
 
 #### Example
 
@@ -381,14 +344,14 @@ import asyncio
 urls = [
     # FQDNs
     'https://www.google.com/',
-    'https://www.hepsiburada.com/', 
+    'https://www.trendyol.com/', 
     'cnn.com', 
 
     # IP Addresses
     '1.1.1.1'
     ]
 
-hosts = asyncio.run(async_multi_tcpping(urls, count=5, interval=1.5))
+hosts = asyncio.run(async_multi_tcpping(urls, count=7, interval=1.5))
 
 for host in hosts:
     print(host.is_alive, host.avg_rtt_all)
@@ -398,3 +361,18 @@ for host in hosts:
 # True 93.685
 # True 9.165
 ```
+## Contributing
+
+Comments and enhancements are welcome.
+
+All development is done on [GitHub]. Use [Issues] to report problems and submit feature requests. Please include a minimal example that reproduces the bug.
+
+## License
+
+Copyright 2017-2022 Valentin BELYN.
+
+Code released under the GNU LGPLv3 license. See the [LICENSE] for details.
+
+[GitHub]: https://github.com/EnginEken/tcppinglib
+[Issues]: https://github.com/EnginEken/tcppinglib/issues
+[LICENSE]: LICENSE
