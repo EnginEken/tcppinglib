@@ -36,4 +36,4 @@ __author__    = 'Engin EKEN'
 __copyright__ = 'Copyright 2021-2026 Engin EKEN'
 __license__   = 'GNU Lesser General Public License v3.0'
 
-__version__   = '2.0.2'
+__version__   = '2.0.3'
