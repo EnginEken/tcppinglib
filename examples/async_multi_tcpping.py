@@ -13,8 +13,8 @@ import asyncio
 
 urls = [
     # FQDNs
-    'https://www.google.com/',
-    'https://www.hepsiburada.com/', 
+    'https://www.google.com',
+    'https://www.hepsiburada.com', 
     'cnn.com', 
 
     # IP Addresses

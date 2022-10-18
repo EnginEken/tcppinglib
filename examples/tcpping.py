@@ -12,7 +12,7 @@
 from tcppinglib import tcpping
 
 host = tcpping(
-    "https://www.google.com/", port=443, count=10, interval=1.5
+    "https://www.google.com", port=443, count=10, interval=1.5
 )  # IPv4 address resolution
 
 # Sending tcpping to google.

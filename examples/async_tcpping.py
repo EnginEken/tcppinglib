@@ -16,5 +16,5 @@ async def host_specs(address):
     host = await async_tcpping(address, count=7, interval=1.5)
     print(host.avg_rtt, host.is_alive)
 
-asyncio.run(host_specs('https://www.google.com/'))
+asyncio.run(host_specs('https://www.google.com'))
 # 215.261 True

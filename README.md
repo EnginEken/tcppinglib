@@ -185,7 +185,7 @@ multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 
 ```python
 >>> from tcppinglib import multi_tcpping
 
->>> hosts = multi_tcpping(['www.google.com', 'https://www.python.org/', 'http://cnn.com'], interval=1.5, concurrent_tasks=20)
+>>> hosts = multi_tcpping(['www.google.com', 'https://www.python.org', 'http://cnn.com'], interval=1.5, concurrent_tasks=20)
 
 >>> [host.is_alive for host in hosts]                               # Check whether hosts are responding respectively
 [True, True, True]
@@ -268,7 +268,7 @@ async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, inter
 ...     return host.is_alive, host.avg_rtt, host.packet_loss
 ... 
 
->>> asyncio.run(host_specs('https://www.google.com/'))
+>>> asyncio.run(host_specs('https://www.google.com'))
 (True, 450.629, 0.0)
 ```
 <br>
@@ -343,8 +343,8 @@ import asyncio
 
 urls = [
     # FQDNs
-    'https://www.google.com/',
-    'https://www.trendyol.com/', 
+    'https://www.google.com',
+    'https://www.trendyol.com', 
     'cnn.com', 
 
     # IP Addresses

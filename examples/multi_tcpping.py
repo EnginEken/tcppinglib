@@ -12,7 +12,7 @@
 from tcppinglib import multi_tcpping
 
 hosts = multi_tcpping(
-    ["https://www.google.com/", "http://cnn.com", "www.python.org"],
+    ["https://www.google.com", "http://cnn.com", "www.python.org"],
     count=10,
     interval=1.5,
 )
