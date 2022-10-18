@@ -42,7 +42,7 @@ def tcpping(
 ):
 
     address = strip_http_https(address)
-    
+
     if is_hostname(address):
         address = hostname_lookup(address, port, socket.AF_INET)[0]
 
@@ -55,9 +55,7 @@ def tcpping(
     rtts = []
 
     for sequence in range(count):
-
         with _Socket() as sock:
-
             if sequence > 0:
                 time.sleep(interval)
 
@@ -67,9 +65,6 @@ def tcpping(
                 sock.connect(request)
                 packets_sent += 1
                 rtts.append(request.time)
-                print(
-                    f"Tcpping to {address}, port {port}: seq={sequence} time:={(request.time * 1000):.2f} ms"
-                )
 
             except Exception as e:
                 print(e)
@@ -102,6 +97,7 @@ async def async_tcpping(
         with AsyncTCPSocket(_Socket()) as sock:
             if sequence > 0:
                 await asyncio.sleep(interval)
+            
             request = TCPRequest(destination=address, port=port, timeout=timeout)
 
             try:
