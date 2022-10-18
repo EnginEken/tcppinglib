@@ -26,7 +26,6 @@
 
 import socket
 import time
-import asyncio
 
 from .exceptions import *
 
@@ -101,9 +100,12 @@ class TCPSocket:
             self._set_timeout(request.timeout)
             start_time = time.perf_counter()
 
-            self._sock.connect_ex((request.destination, sock_port))
+            self._sock.connect((request.destination, sock_port))
 
             request._time = time.perf_counter() - start_time
+
+        except socket.timeout:
+            raise PortNotOpenError(sock_port, request.destination)
 
         except OSError as err:
             if err.errno == 8:
@@ -233,19 +235,16 @@ class AsyncTCPSocket:
         if not self._tcp_sock:
             raise NotImplementedError
 
-        loop = asyncio.get_running_loop()
-
         try:
-            sock_port = int(request.port)
-
             self._tcp_sock._set_timeout(request.timeout)
             start_time = time.perf_counter()
 
-            await loop.create_connection(
-                asyncio.Protocol, host=request.destination, port=sock_port
-            )
+            self._tcp_sock.connect(request)
 
             request._time = time.perf_counter() - start_time
+
+        except socket.timeout:
+            raise PortNotOpenError(request.port, request.destination)
 
         except OSError as err:
             if err.errno == 8:
