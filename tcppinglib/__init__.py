@@ -27,7 +27,7 @@
 from .exceptions import *
 from .tcp_ping import tcpping, async_tcpping
 from .tcp_multiping import multi_tcpping, async_multi_tcpping
-from .models import TcpHost
+from .models import TCPHost, TCPRequest
 from .utils import is_hostname, is_ipv6, strip_http_https
 from .utils import hostname_lookup, async_hostname_lookup
 

@@ -83,7 +83,7 @@ class TCPRequest:
         return self._time
 
 
-class TcpHost:
+class TCPHost:
     """
     The class that represents single TCP host. It has property methods for
     simplified call for the TCP connection results.
