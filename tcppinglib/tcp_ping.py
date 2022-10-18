@@ -41,6 +41,8 @@ def tcpping(
     interval: float = 3,
 ):
 
+    address = strip_http_https(address)
+    
     if is_hostname(address):
         address = hostname_lookup(address, port, socket.AF_INET)[0]
 
