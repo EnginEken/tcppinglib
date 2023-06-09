@@ -67,7 +67,7 @@ def tcpping(
                 rtts.append(request.time)
 
             except Exception as e:
-                print(e)
+                raise Exception(f'exception while tcpping {address}', e)
 
     return TCPHost(address, port, packets_sent, count - packets_sent, rtts)
 
