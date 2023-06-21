@@ -220,4 +220,4 @@ class TCPHost:
         if not self._rtts:
             return 0.0
 
-        return round((sum([(self.avg_rtt - rtt) ** 2 for rtt in self._rtts]) / len(self._rtts)) ** 0.5 * 1000, 3)
+        return round((sum([(sum(self._rtts) / len(self._rtts) - rtt) ** 2 for rtt in self._rtts]) / len(self._rtts)) ** 0.5 * 1000, 3)
