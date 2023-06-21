@@ -22,28 +22,28 @@ for host in hosts:
 
 #   142.250.187.174
 # ------------------------------------------------------------
-#   Packets sent:                    10
-#   Packets received:                10
-#   Packet lost:                     0
-#   Packet loss:                     0.0%
-#   Overall Round-trip times:        225.093 ms / 231.98 ms / 249.058 ms
+#   Packets sent:                           10
+#   Packets received:                       10
+#   Packet lost:                            0
+#   Packet loss:                            0.0%
+#   Overall Round-trip times:               225.093 ms / 231.98 ms / 249.058 ms
 #   min/avg/max/stddev Round-trip times:    1.662 ms / 8.052 ms / 33.093 ms / 3.232 ms
 # ------------------------------------------------------------
 #   151.101.67.5
 # ------------------------------------------------------------
-#   Packets sent:                    10
-#   Packets received:                10
-#   Packet lost:                     0
-#   Packet loss:                     0.0%
-#   min/avg/max Round-trip times:    156.232 ms / 214.811 ms / 426.994 ms / 34.323 ms
+#   Packets sent:                           10
+#   Packets received:                       10
+#   Packet lost:                            0
+#   Packet loss:                            0.0%
+#   min/avg/max/stddev Round-trip times:    156.232 ms / 214.811 ms / 426.994 ms / 34.323 ms
 # ------------------------------------------------------------
 #   138.197.63.241
 # ------------------------------------------------------------
-#   Packets sent:                    10
-#   Packets received:                10
-#   Packet lost:                     0
-#   Packet loss:                     0.0%
-#   min/avg/max Round-trip times:    119.124 ms / 178.133 ms / 387.641 ms / 54.354 ms
+#   Packets sent:                           10
+#   Packets received:                       10
+#   Packet lost:                            0
+#   Packet loss:                            0.0%
+#   min/avg/max/stddev Round-trip times:    119.124 ms / 178.133 ms / 387.641 ms / 54.354 ms
 # ------------------------------------------------------------
 
 
