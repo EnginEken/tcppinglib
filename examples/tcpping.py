@@ -35,6 +35,6 @@ print(
 
 
 print(
-    f"overall_min: {host.min_rtt}, overall_avg: {host.avg_rtt}, overall_max: {host.max_rtt}"
+    f"overall_min: {host.min_rtt}, overall_avg: {host.avg_rtt}, overall_max: {host.max_rtt},  overall_stddev: {host.stddev_rtt}"
 )
-# overall_min: 215.57, overall_avg: 270.47, overall_max: 700.475
+# overall_min: 215.57, overall_avg: 270.47, overall_max: 700.475, overall_stddev: 143.454

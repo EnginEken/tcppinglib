@@ -24,6 +24,7 @@
     <https://www.gnu.org/licenses/>.
 '''
 
+
 class TCPRequest:
     """
     Object that represents a TCP reuqest making 3way handshake.
@@ -120,14 +121,14 @@ class TCPHost:
 
     def __str__(self):
         return (
-            f"-" * 60 + "\n"
-            f"  {self._destination}\n" + "-" * 60 + "\n"
-            f"  Packets sent:                    {self._packets_sent}\n"
-            f"  Packets received:                {self.packets_received}\n"
-            f"  Packet lost:                     {self._packet_lost}\n"
-            f"  Packet loss:                     {self.packet_loss}%\n"
-            f"  min/avg/max Round-trip times:    {self.min_rtt} ms / {self.avg_rtt} ms / {self.max_rtt} ms\n"
-            + "-" * 60
+                f"-" * 60 + "\n"
+                            f"  {self._destination}\n" + "-" * 60 + "\n"
+                                                                    f"  Packets sent:                           {self._packets_sent}\n"
+                                                                    f"  Packets received:                       {self.packets_received}\n"
+                                                                    f"  Packet lost:                            {self._packet_lost}\n"
+                                                                    f"  Packet loss:                            {self.packet_loss}%\n"
+                                                                    f"  min/avg/max/stddev Round-trip times:    {self.min_rtt} ms / {self.avg_rtt} ms / {self.max_rtt} ms / {self.stddev_rtt} ms\n"
+                + "-" * 60
         )
 
     @property
@@ -210,3 +211,13 @@ class TCPHost:
             return 0.0
 
         return round(max(self._rtts) * 1000, 3)
+
+    @property
+    def stddev_rtt(self):
+        """
+        The standard deviation of successfull connection time in milliseconds.
+        """
+        if not self._rtts:
+            return 0.0
+
+        return round((sum([(self.avg_rtt - rtt) ** 2 for rtt in self._rtts]) / len(self._rtts)) ** 0.5 * 1000, 3)
