@@ -29,8 +29,8 @@ from .tcp_ping import async_tcpping
 
 
 async def async_multi_tcpping(
-    addresses: List,
-    ports: List,
+    addresses: list,
+    ports: list,
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
