@@ -29,17 +29,17 @@ from .tcp_ping import async_tcpping
 
 
 async def async_multi_tcpping(
-    addresses: list,
-    port: int = 80,
+    addresses: List,
+    ports: List,
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
-    concurrent_tasks=50,
+    concurrent_tasks: int = 50,
 ):
     loop = asyncio.get_running_loop()
     tasks = []
     tasks_pending = set()
-    for address in addresses:
+    for address, port in zip(addresses, ports):
         if len(tasks_pending) >= concurrent_tasks:
             _, tasks_pending = await asyncio.wait(
                 tasks_pending, return_when=asyncio.FIRST_COMPLETED
