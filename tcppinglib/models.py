@@ -1,4 +1,4 @@
-'''
+"""
     tcppinglib
     ~~~~~~~
     
@@ -22,7 +22,8 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this program.  If not, see
     <https://www.gnu.org/licenses/>.
-'''
+"""
+
 
 class TCPRequest:
     """
@@ -171,7 +172,9 @@ class TCPHost:
         if not self._packets_sent:
             return 0.0
 
-        return round((self._packet_lost / self._packets_sent) * 100, 2)
+        return round(
+            (self._packet_lost / (self._packets_sent + self._packet_lost)) * 100, 2
+        )
 
     @property
     def is_alive(self):
