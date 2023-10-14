@@ -68,7 +68,7 @@ def tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, packets_sent, count - packets_sent, rtts)
+    return TCPHost(address, port, count, count - packets_sent, rtts)
 
 
 async def async_tcpping(
@@ -106,4 +106,4 @@ async def async_tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, packets_sent, count - packets_sent, rtts)
+    return TCPHost(address, port, count, count - packets_sent, rtts)
