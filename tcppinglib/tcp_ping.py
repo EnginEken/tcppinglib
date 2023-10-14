@@ -40,7 +40,6 @@ def tcpping(
     count: int = 5,
     interval: float = 3,
 ):
-
     address = strip_http_https(address)
 
     if is_hostname(address):
@@ -69,7 +68,7 @@ def tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, packets_sent, count - packets_sent, rtts)
+    return TCPHost(address, port, count, count - packets_sent, rtts)
 
 
 async def async_tcpping(
@@ -79,7 +78,6 @@ async def async_tcpping(
     count: int = 5,
     interval: float = 3,
 ):
-
     address = strip_http_https(address)
 
     if is_hostname(address):
@@ -97,7 +95,7 @@ async def async_tcpping(
         with AsyncTCPSocket(_Socket()) as sock:
             if sequence > 0:
                 await asyncio.sleep(interval)
-            
+
             request = TCPRequest(destination=address, port=port, timeout=timeout)
 
             try:
@@ -108,4 +106,4 @@ async def async_tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, packets_sent, count - packets_sent, rtts)
+    return TCPHost(address, port, count, count - packets_sent, rtts)

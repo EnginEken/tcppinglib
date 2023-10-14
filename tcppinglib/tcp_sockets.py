@@ -1,4 +1,4 @@
-'''
+"""
     tcppinglib
     ~~~~~~~
     
@@ -22,7 +22,7 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this program.  If not, see
     <https://www.gnu.org/licenses/>.
-'''
+"""
 
 import socket
 import time
@@ -36,7 +36,6 @@ class TCPSocket:
     """
 
     def __init__(self) -> None:
-
         self._sock = None
         try:
             self._sock = self._create_socket(
