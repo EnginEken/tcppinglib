@@ -90,7 +90,7 @@ tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: f
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`, `stddev_rtt`
 
 #### Example
 
@@ -178,7 +178,7 @@ multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`, `stddev_rtt`
 
 #### Example
 
@@ -255,7 +255,7 @@ async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, inter
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`, `stddev_rtt`
 
 #### Example
 
@@ -333,7 +333,7 @@ async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5,
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
-`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`
+`ip_address`, `port`, `packets_sent`, `packets_received`, `packet_loss`, `is_alive`, `min_rtt`, `avg_rtt`, `max_rtt`, `stddev_rtt`
 
 #### Example
 
