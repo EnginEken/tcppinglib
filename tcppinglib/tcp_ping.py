@@ -40,7 +40,6 @@ def tcpping(
     count: int = 5,
     interval: float = 3,
 ):
-
     address = strip_http_https(address)
 
     if is_hostname(address):
@@ -79,7 +78,6 @@ async def async_tcpping(
     count: int = 5,
     interval: float = 3,
 ):
-
     address = strip_http_https(address)
 
     if is_hostname(address):
@@ -97,7 +95,7 @@ async def async_tcpping(
         with AsyncTCPSocket(_Socket()) as sock:
             if sequence > 0:
                 await asyncio.sleep(interval)
-            
+
             request = TCPRequest(destination=address, port=port, timeout=timeout)
 
             try:

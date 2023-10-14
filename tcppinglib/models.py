@@ -1,4 +1,4 @@
-'''
+"""
     tcppinglib
     ~~~~~~~
     
@@ -22,7 +22,7 @@
     You should have received a copy of the GNU Lesser General Public
     License along with this program.  If not, see
     <https://www.gnu.org/licenses/>.
-'''
+"""
 
 
 class TCPRequest:
@@ -121,14 +121,14 @@ class TCPHost:
 
     def __str__(self):
         return (
-                f"-" * 60 + "\n"
-                            f"  {self._destination}\n" + "-" * 60 + "\n"
-                                                                    f"  Packets sent:                           {self._packets_sent}\n"
-                                                                    f"  Packets received:                       {self.packets_received}\n"
-                                                                    f"  Packet lost:                            {self._packet_lost}\n"
-                                                                    f"  Packet loss:                            {self.packet_loss}%\n"
-                                                                    f"  min/avg/max/stddev Round-trip times:    {self.min_rtt} ms / {self.avg_rtt} ms / {self.max_rtt} ms / {self.stddev_rtt} ms\n"
-                + "-" * 60
+            f"-" * 60 + "\n"
+            f"  {self._destination}\n" + "-" * 60 + "\n"
+            f"  Packets sent:                           {self._packets_sent}\n"
+            f"  Packets received:                       {self.packets_received}\n"
+            f"  Packet lost:                            {self._packet_lost}\n"
+            f"  Packet loss:                            {self.packet_loss}%\n"
+            f"  min/avg/max/stddev Round-trip times:    {self.min_rtt} ms / {self.avg_rtt} ms / {self.max_rtt} ms / {self.stddev_rtt} ms\n"
+            + "-" * 60
         )
 
     @property
@@ -220,4 +220,17 @@ class TCPHost:
         if not self._rtts:
             return 0.0
 
-        return round((sum([(sum(self._rtts) / len(self._rtts) - rtt) ** 2 for rtt in self._rtts]) / len(self._rtts)) ** 0.5 * 1000, 3)
+        return round(
+            (
+                sum(
+                    [
+                        (sum(self._rtts) / len(self._rtts) - rtt) ** 2
+                        for rtt in self._rtts
+                    ]
+                )
+                / len(self._rtts)
+            )
+            ** 0.5
+            * 1000,
+            3,
+        )
