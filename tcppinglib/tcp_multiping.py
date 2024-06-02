@@ -1,16 +1,16 @@
 """
     tcppinglib
     ~~~~~~~
-    
+
     Monitor your endpoints with TCP Ping.
 
         https://github.com/EnginEken/tcppinglib
-    
+
     :copyright: Copyright 2021-2026 Engin EKEN.
     :license: GNU LGPLv3, see the LICENSE for details.
-    
+
     ~~~~~~~
-    
+
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
     as published by the Free Software Foundation, either version 3 of

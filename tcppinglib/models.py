@@ -1,16 +1,16 @@
 """
     tcppinglib
     ~~~~~~~
-    
+
     Monitor your endpoints with TCP Ping.
 
         https://github.com/EnginEken/tcppinglib
-    
+
     :copyright: Copyright 2021-2026 Engin EKEN.
     :license: GNU LGPLv3, see the LICENSE for details.
-    
+
     ~~~~~~~
-    
+
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
     as published by the Free Software Foundation, either version 3 of
@@ -109,8 +109,9 @@ class TCPHost:
     :param rtts: The list of successfull connection times expressed in milliseconds.
     """
 
-    def __init__(self, destination, port, packets_sent, packet_lost, rtts):
+    def __init__(self, destination, url, port, packets_sent, packet_lost, rtts):
         self._destination = destination
+        self._url = url
         self._port = port
         self._packets_sent = packets_sent
         self._packet_lost = packet_lost
@@ -122,13 +123,17 @@ class TCPHost:
     def __str__(self):
         return (
             f"-" * 60 + "\n"
-            f"  {self._destination}\n" + "-" * 60 + "\n"
+            f"  {self._url + ' (' + self._destination + ')' if self._url else self._destination}\n"
+            + "-"
+            * 60
+            + "\n"
             f"  Packets sent:                           {self._packets_sent}\n"
             f"  Packets received:                       {self.packets_received}\n"
             f"  Packet lost:                            {self._packet_lost}\n"
             f"  Packet loss:                            {self.packet_loss}%\n"
             f"  min/avg/max/stddev Round-trip times:    {self.min_rtt} ms / {self.avg_rtt} ms / {self.max_rtt} ms / {self.stddev_rtt} ms\n"
-            + "-" * 60
+            + "-"
+            * 60
         )
 
     @property
