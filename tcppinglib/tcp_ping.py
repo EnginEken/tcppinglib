@@ -1,16 +1,16 @@
 """
     tcppinglib
     ~~~~~~~
-    
+
     Monitor your endpoints with TCP Ping.
 
         https://github.com/EnginEken/tcppinglib
-    
+
     :copyright: Copyright 2021-2026 Engin EKEN.
     :license: GNU LGPLv3, see the LICENSE for details.
-    
+
     ~~~~~~~
-    
+
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
     as published by the Free Software Foundation, either version 3 of
@@ -24,9 +24,9 @@
     <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 import socket
 import time
-import asyncio
 
 from .models import *
 from .tcp_sockets import *
@@ -40,9 +40,11 @@ def tcpping(
     count: int = 5,
     interval: float = 3,
 ):
+    url = ""
     address = strip_http_https(address)
 
     if is_hostname(address):
+        url = address
         address = hostname_lookup(address, port, socket.AF_INET)[0]
 
     if is_ipv6(address):
@@ -68,7 +70,7 @@ def tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, count, count - packets_sent, rtts)
+    return TCPHost(address, url, port, count, count - packets_sent, rtts)
 
 
 async def async_tcpping(
@@ -78,9 +80,11 @@ async def async_tcpping(
     count: int = 5,
     interval: float = 3,
 ):
+    url = ""
     address = strip_http_https(address)
 
     if is_hostname(address):
+        url = address
         address = (await async_hostname_lookup(address, port, socket.AF_INET))[0]
 
     if is_ipv6(address):
@@ -106,4 +110,4 @@ async def async_tcpping(
             except Exception as e:
                 print(e)
 
-    return TCPHost(address, port, count, count - packets_sent, rtts)
+    return TCPHost(address, url, port, count, count - packets_sent, rtts)
