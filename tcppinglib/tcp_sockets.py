@@ -1,16 +1,16 @@
 """
     tcppinglib
     ~~~~~~~
-    
+
     Monitor your endpoints with TCP Ping.
 
         https://github.com/EnginEken/tcppinglib
-    
+
     :copyright: Copyright 2021-2026 Engin EKEN.
     :license: GNU LGPLv3, see the LICENSE for details.
-    
+
     ~~~~~~~
-    
+
     This program is free software: you can redistribute it and/or
     modify it under the terms of the GNU Lesser General Public License
     as published by the Free Software Foundation, either version 3 of
@@ -24,6 +24,7 @@
     <https://www.gnu.org/licenses/>.
 """
 
+import asyncio
 import socket
 import time
 
@@ -68,11 +69,11 @@ class TCPSocket:
         """
         raise NotImplementedError
 
-    def _set_timeout(self):
+    def _set_timeout(self, timeout):
         """
-        Set the timeout for this socket. Must be overridden by proper socket class.
+        Set the timeout for this socket.
         """
-        raise NotImplementedError
+        self._sock.settimeout(timeout)
 
     def connect(self, request):
         """
@@ -100,7 +101,6 @@ class TCPSocket:
             start_time = time.perf_counter()
 
             self._sock.connect((request.destination, sock_port))
-
             request._time = time.perf_counter() - start_time
 
         except socket.timeout:
@@ -109,7 +109,6 @@ class TCPSocket:
         except OSError as err:
             if err.errno == 8:
                 raise NameLookupError(request.destination)
-
             raise TCPSocketError(str(err))
 
     def close(self):
@@ -160,12 +159,6 @@ class TCPv4Socket(TCPSocket):
         """
         return socket.socket(family=socket.AF_INET, type=type, proto=proto)
 
-    def _set_timeout(self, timeout):
-        """
-        Set the timeout value for created socket.
-        """
-        self._sock.settimeout(timeout)
-
 
 class TCPv6Socket(TCPSocket):
     """
@@ -178,16 +171,10 @@ class TCPv6Socket(TCPSocket):
         """
         return socket.socket(family=socket.AF_INET6, type=type, proto=proto)
 
-    def _set_timeout(self, timeout):
-        """
-        Set the timeout value for created socket.
-        """
-        self._sock.settimeout(timeout)
-
 
 class AsyncTCPSocket:
     """
-    Class for creating sockets asyncronously.
+    Class for creating sockets asynchronously.
 
     :type tcp_sock: TCPSocket
     :param tcp_socket: TCP Socket. Once the wrapper is instantiated,
@@ -231,24 +218,29 @@ class AsyncTCPSocket:
         :type request: TCPRequest
         :param request: The TCP request object that have been created.
         """
+
         if not self._tcp_sock:
             raise NotImplementedError
 
         try:
-            self._tcp_sock._set_timeout(request.timeout)
+            loop = asyncio.get_running_loop()
             start_time = time.perf_counter()
 
-            self._tcp_sock.connect(request)
-
+            await asyncio.wait_for(
+                loop.sock_connect(
+                    self._tcp_sock.sock, (request.destination, request.port)
+                ),
+                timeout=request.timeout,
+            )
             request._time = time.perf_counter() - start_time
 
-        except socket.timeout:
+        except asyncio.TimeoutError:
             raise PortNotOpenError(request.port, request.destination)
 
-        except OSError as err:
-            if err.errno == 8:
-                raise NameLookupError(request.destination)
+        except socket.gaierror:
+            raise NameLookupError(request.destination)
 
+        except OSError as err:
             raise TCPSocketError(str(err))
 
     def close(self):
