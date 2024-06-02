@@ -8,8 +8,9 @@
 
     Examples for async_multi_tcpping
 """
-from tcppinglib import async_multi_tcpping
 import asyncio
+
+from tcppinglib import async_multi_tcpping
 
 urls = [
     # FQDNs

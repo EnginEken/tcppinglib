@@ -9,8 +9,10 @@
     Examples for async_tcpping
 """
 
-from tcppinglib import async_tcpping
 import asyncio
+
+from tcppinglib import async_tcpping
+
 
 async def host_specs(address):
     host = await async_tcpping(address, count=7, interval=1.5)

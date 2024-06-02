@@ -25,12 +25,11 @@
 '''
 
 from .exceptions import *
-from .tcp_ping import tcpping, async_tcpping
-from .tcp_multiping import multi_tcpping, async_multi_tcpping
 from .models import TCPHost, TCPRequest
-from .utils import is_hostname, is_ipv6, strip_http_https
-from .utils import hostname_lookup, async_hostname_lookup
-
+from .tcp_multiping import async_multi_tcpping, multi_tcpping
+from .tcp_ping import async_tcpping, tcpping
+from .utils import (async_hostname_lookup, hostname_lookup, is_hostname,
+                    is_ipv6, strip_http_https)
 
 __author__    = 'Engin EKEN'
 __copyright__ = 'Copyright 2021-2026 Engin EKEN'
