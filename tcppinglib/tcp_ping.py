@@ -39,6 +39,7 @@ def tcpping(
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
+    print_errors: bool = False,
 ):
     url = ""
     address = strip_http_https(address)
@@ -68,7 +69,10 @@ def tcpping(
                 rtts.append(request.time)
 
             except Exception as e:
-                print(e)
+                if print_errors is True:
+                    print(e)
+                else:
+                    pass
 
     return TCPHost(address, url, port, count, count - packets_sent, rtts)
 
@@ -79,6 +83,7 @@ async def async_tcpping(
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
+    print_errors: bool = False,
 ):
     url = ""
     address = strip_http_https(address)
@@ -108,6 +113,9 @@ async def async_tcpping(
                 rtts.append(request.time)
 
             except Exception as e:
-                print(e)
+                if print_errors is True:
+                    print(e)
+                else:
+                    pass
 
     return TCPHost(address, url, port, count, count - packets_sent, rtts)
