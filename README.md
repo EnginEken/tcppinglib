@@ -3,7 +3,7 @@
 <div align="center">
   <br>
   <br>
-  <img src="media/TcpPingLib.png" height="340" width="817" alt="TcpPingLib Logo">
+  <img src="https://raw.githubusercontent.com/EnginEken/tcppinglib/main/media/TcpPingLib.png" height="340" width="817" alt="TcpPingLib Logo">
   <br>
   <br>
 </div>
@@ -114,7 +114,7 @@ True
 >>> host.packet_loss        # Percentage of packet loss
 0.0
 
->>> host.port               # Port number 
+>>> host.port               # Port number
 80
 ```
 <br>
@@ -266,7 +266,7 @@ async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, inter
 >>> async def host_specs(address):
 ...     host = await async_tcpping(address, count=7, interval=1.5)
 ...     return host.is_alive, host.avg_rtt, host.packet_loss
-... 
+...
 
 >>> asyncio.run(host_specs('https://www.google.com'))
 (True, 450.629, 0.0)
@@ -344,8 +344,8 @@ import asyncio
 urls = [
     # FQDNs
     'https://www.google.com',
-    'https://www.trendyol.com', 
-    'cnn.com', 
+    'https://www.trendyol.com',
+    'cnn.com',
 
     # IP Addresses
     '1.1.1.1'
