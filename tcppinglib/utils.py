@@ -109,3 +109,18 @@ def strip_http_https(name):
     Return a `string`
     """
     return sub(r"^(http|https)?:\/\/", "", name)
+
+
+def extract_cli_address_and_port(address):
+    """
+    Extract the IP address and port from the address argument if it contains a port.
+    This function also strips any URL scheme (http:// or https://) before processing.
+
+    :param address: The IP address or FQDN, optionally with a port (e.g., 192.168.1.1:8080 or http://cnn.com:80)
+    :return: A tuple (ip_address, port)
+    """
+    address = strip_http_https(address)
+
+    ip_address, port_str = address.rsplit(":", 1)
+    port = int(port_str)
+    return ip_address, port

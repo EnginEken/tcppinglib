@@ -1,6 +1,51 @@
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "tcppinglib"
+version = "2.0.4"
+description = "An Easy Way to Measure the Connectivity and Latency with TCP Ping"
+keywords = [
+    "tcp",
+    "tcpsockets",
+    "tcpping",
+    "multitcpping",
+    "async",
+    "asyncio",
+    "ipv4",
+    "ipv6",
+    "python",
+    "python3",
+]
+authors = [{ name = "Engin EKEN", email = "e.eken@outlook.com" }]
+readme = { file = "README.md", content-type = "text/markdown" }
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/EnginEken/tcppinglib"
+"Issues" = "https://github.com/EnginEken/tcppinglib/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tcppinglib"]
+exclude = ["media"]
+
+[project.scripts]
+tcpping = "tcppinglib.cli:main"

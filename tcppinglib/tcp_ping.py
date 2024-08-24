@@ -39,6 +39,7 @@ def tcpping(
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
+    is_cli: bool = False,
 ):
     url = ""
     address = strip_http_https(address)
@@ -66,6 +67,9 @@ def tcpping(
                 sock.connect(request)
                 packets_sent += 1
                 rtts.append(request.time)
+
+                if is_cli:
+                    print(TCPCliSeq(address, url, port, sequence, request.time))
 
             except Exception as e:
                 print(e)

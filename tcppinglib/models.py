@@ -42,7 +42,7 @@ class TCPRequest:
     with the remote destination:port to try again in seconds. Default to 2 secs.
     """
 
-    def __init__(self, destination, port=80, timeout=2) -> None:
+    def __init__(self, destination, port: int = 80, timeout: float = 2) -> None:
         self._destination = destination
         self._port = port
         self._time = 0
@@ -239,3 +239,44 @@ class TCPHost:
             * 1000,
             3,
         )
+
+
+class TCPCliSeq:
+    """
+    The class that represents single sequence of tcpping. It has property methods for
+    simplified call for each sequence of TCP connection result.
+
+    :type destination: str
+    :param destination: The IP address of the host to which the 3way
+    handshake will be performed.
+
+    :type port: int
+    :param port: Port number of the destination ip address to which the 3way
+    handshake will be performed.
+
+    :seq: int
+    :param seq: The number of tcpping sequence
+
+    :type rtt: float
+    :param rtt: The successfull connection time expressed in milliseconds for current sequence.
+    """
+
+    def __init__(self, destination, url, port, seq, rtt):
+        self._destination = destination
+        self._url = url
+        self._port = port
+        self._seq = seq
+        self._rtt = rtt
+
+    def __str__(self):
+        return f"Reply from {self._url + ' (' + self._destination + ')' if self._url else self._destination} on port {self._port} tcpping_seq={self._seq} time={self.rtt:.2f} ms"
+
+    @property
+    def rtt(self):
+        """
+        The successfull connection time in milliseconds.
+        """
+        if not self._rtt:
+            return 0.0
+
+        return self._rtt * 1000
