@@ -46,3 +46,6 @@ classifiers = [
 where = ["."]
 include = ["tcppinglib"]
 exclude = ["media"]
+
+[project.scripts]
+tcpping = "tcppinglib.cli:main"

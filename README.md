@@ -39,6 +39,73 @@ It is not only measuring connection overall time to the web server, but also mea
 
 ## Usage
 
+### Command Line Interface (CLI)
+`tcppinglib` provides a command-line tool `tcpping` to perform TCP ping operations directly from the terminal. It is a simple and easy-to-use tool that allows you to quickly check the availability of a port on a URL.
+
+#### CLI Usage
+```shell
+$ tcpping --help
+usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] address
+```
+
+#### CLI Arguments
+- `address`
+
+    The IP address or FQDN of the host to ping. You can also specify the port using <ip_address>:<port> format.
+
+    - Type: `str`
+
+#### CLI Options
+- `-p PORT, --port PORT`
+
+    The port number to connect to (default: 80). This will be overridden if a port is specified in the address.
+
+    - Type: `int`
+    - Default: `80`(HTTP)
+
+- `-t TIMEOUT, --timeout TIMEOUT`
+
+    The maximum waiting time for receiving a reply in seconds.
+
+    - Type: `float`
+    - Default: `1` seconds
+
+- `-c COUNT, --count COUNT`
+
+    The number of packets which will be sent to `address`.
+
+    - Type: `int`
+    - Default: `5`
+
+- `-i INTERVAL, --interval INTERVAL`
+
+    The interval between sending each packet in seconds
+
+    - Type: `float`
+    - Default: `1` seconds
+
+#### Example
+
+```shell
+$ tcpping example.com -p 443 -i 2 -t 2 -c 4
+
+TCPPING example.com:443: 4 packets...
+Reply from example.com (93.184.215.14) on port 443 tcpping_seq=0 time=78.76 ms
+Reply from example.com (93.184.215.14) on port 443 tcpping_seq=1 time=80.52 ms
+Reply from example.com (93.184.215.14) on port 443 tcpping_seq=2 time=81.60 ms
+Reply from example.com (93.184.215.14) on port 443 tcpping_seq=3 time=84.86 ms
+------------------------------------------------------------
+  example.com (93.184.215.14)
+------------------------------------------------------------
+  Packets sent:                           4
+  Packets received:                       4
+  Packet lost:                            0
+  Packet loss:                            0.0%
+  min/avg/max/stddev Round-trip times:    78.758 ms / 81.434 ms / 84.864 ms / 2.224 ms
+------------------------------------------------------------
+```
+
+
 ### ***tcpping***
 - Send TCP Ping to a URL.
 - Import the function with the below code snippet.
@@ -110,6 +177,9 @@ True
 
 >>> host.avg_rtt            # Average round trip time for all process
 18.789
+
+>>> host.stddev_rtt         # Standard deviation of round trip time for all process
+2.142
 
 >>> host.packet_loss        # Percentage of packet loss
 0.0
