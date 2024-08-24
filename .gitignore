@@ -64,3 +64,5 @@ ENV/
 env.bak/
 venv.bak/
 
+# Formatter, Linter
+.ruff_cache/
