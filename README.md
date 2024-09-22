@@ -45,7 +45,7 @@ It is not only measuring connection overall time to the web server, but also mea
 #### CLI Usage
 ```shell
 $ tcpping --help
-usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] address
+usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] [--print-errors] address
 ```
 
 #### CLI Arguments
@@ -84,6 +84,14 @@ usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] address
     - Type: `float`
     - Default: `1` seconds
 
+- `--print-errors`
+
+    Option to print errors if any occur during ping.
+
+    - Type: `bool`
+    - Default: `False`
+
+
 #### Example
 
 ```shell
@@ -117,7 +125,7 @@ from tcppinglib import tcpping
 #### Function Parameters
 
 ```python
-tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: float = 3)
+tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: float = 3, print_errors: bool = False)
 ```
 
 - `address`
@@ -149,10 +157,17 @@ tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: f
 
 - `interval`
 
-    The interval between sending each packet in seconds
+    The interval between sending each packet in seconds.
 
     - Type: `float`
     - Default: `3` seconds
+
+- `print_errors`
+
+    Option to print errors if any occur during ping.
+
+    - Type: `bool`
+    - Default: `False`
 
 #### Return Value
 
@@ -201,7 +216,7 @@ from tcppinglib import multi_tcpping
 #### Function Parameters
 
 ```python
-multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50):
+multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False):
 ```
 
 - `address`
@@ -244,6 +259,13 @@ multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 
 
     - Type: `int`
     - Default: `50`
+
+- `print_errors`
+
+    Option to print errors if any occur during ping.
+
+    - Type: `bool`
+    - Default: `False`
 
 #### Return Value
 
@@ -285,7 +307,7 @@ from tcppinglib import async_tcpping
 #### Function Parameters
 
 ```python
-async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3)
+async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, print_errors: bool = False)
 ```
 
 - `address`
@@ -322,6 +344,13 @@ async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, inter
     - Type: `float`
     - Default: `3` seconds
 
+- `print_errors`
+
+    Option to print errors if any occur during ping.
+
+    - Type: `bool`
+    - Default: `False`
+
 #### Return Value
 
 - A `TcpHost` object will be returned containing with many usefull values about the TCP Ping. <br>
@@ -356,7 +385,7 @@ from tcppinglib import async_multi_tcpping
 #### Function Parameters
 
 ```python
-async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50)
+async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False)
 ```
 
 - `address`
@@ -399,6 +428,13 @@ async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5,
 
     - Type: `int`
     - Default: `50`
+
+- `print_errors`
+
+    Option to print errors if any occur during ping.
+
+    - Type: `bool`
+    - Default: `False`
 
 #### Return Value
 
