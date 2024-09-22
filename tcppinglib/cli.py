@@ -77,6 +77,12 @@ def parse_arguments():
         help="Interval in seconds between each ping request (default: 1).",
     )
 
+    parser.add_argument(
+        "--print-errors",
+        action="store_true",
+        help="Print errors if any occur during ping (default: False).",
+    )
+
     return parser.parse_args()
 
 
@@ -105,6 +111,7 @@ def main():
             count=args.count,
             interval=args.interval,
             is_cli=True,
+            print_errors=args.print_errors,
         )
         print(host)
 

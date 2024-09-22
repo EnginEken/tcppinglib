@@ -36,6 +36,7 @@ async def async_multi_tcpping(
     count: int = 5,
     interval: float = 3,
     concurrent_tasks=50,
+    print_errors: bool = False,
 ):
     loop = asyncio.get_running_loop()
     tasks = []
@@ -45,7 +46,9 @@ async def async_multi_tcpping(
             _, tasks_pending = await asyncio.wait(
                 tasks_pending, return_when=asyncio.FIRST_COMPLETED
             )
-        task = loop.create_task(async_tcpping(address, port, timeout, count, interval))
+        task = loop.create_task(
+            async_tcpping(address, port, timeout, count, interval, print_errors)
+        )
         tasks.append(task)
         tasks_pending.add(task)
     await asyncio.wait(tasks_pending)
@@ -59,6 +62,7 @@ def multi_tcpping(
     count: int = 5,
     interval: float = 3,
     concurrent_tasks=50,
+    print_errors: bool = False,
 ):
     return asyncio.run(
         async_multi_tcpping(
@@ -68,5 +72,6 @@ def multi_tcpping(
             count=count,
             interval=interval,
             concurrent_tasks=concurrent_tasks,
+            print_errors=print_errors,
         )
     )
