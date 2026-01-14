@@ -1,34 +1,34 @@
 """
-    tcppinglib
-    ~~~~~~~
+tcppinglib
+~~~~~~~
 
-    Monitor your endpoints with TCP Ping.
+Monitor your endpoints with TCP Ping.
 
-        https://github.com/EnginEken/tcppinglib
+    https://github.com/EnginEken/tcppinglib
 
-    :copyright: Copyright 2021-2026 Engin EKEN.
-    :license: GNU LGPLv3, see the LICENSE for details.
+:copyright: Copyright 2021-2026 Engin EKEN.
+:license: GNU LGPLv3, see the LICENSE for details.
 
-    ~~~~~~~
+~~~~~~~
 
-    This program is free software: you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public License
-    as published by the Free Software Foundation, either version 3 of
-    the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-    You should have received a copy of the GNU Lesser General Public
-    License along with this program.  If not, see
-    <https://www.gnu.org/licenses/>.
+This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public
+License along with this program.  If not, see
+<https://www.gnu.org/licenses/>.
 """
 
 import argparse
 import sys
 
-from .tcp_ping import async_tcpping, tcpping
-from .utils import extract_cli_address_and_port, strip_http_https
+from .tcp_ping import tcpping
+from .utils import extract_cli_address_and_port
 
 
 def parse_arguments():
@@ -80,7 +80,7 @@ def parse_arguments():
         "-s",
         "--source",
         type=str,
-        default='',
+        default="",
         help="The source IP address of the tcp connection (default: Chosen by OS).",
     )
     parser.add_argument(
@@ -122,8 +122,8 @@ def main():
         )
         print(host)
 
-    except ValueError as e:
-        print(f"Error: Invalid port value provided.")
+    except ValueError:
+        print("Error: Invalid port value provided.")
         sys.exit(1)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
