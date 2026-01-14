@@ -1,27 +1,27 @@
 """
-    tcppinglib
-    ~~~~~~~
+tcppinglib
+~~~~~~~
 
-    Monitor your endpoints with TCP Ping.
+Monitor your endpoints with TCP Ping.
 
-        https://github.com/EnginEken/tcppinglib
+    https://github.com/EnginEken/tcppinglib
 
-    :copyright: Copyright 2021-2026 Engin EKEN.
-    :license: GNU LGPLv3, see the LICENSE for details.
+:copyright: Copyright 2021-2026 Engin EKEN.
+:license: GNU LGPLv3, see the LICENSE for details.
 
-    ~~~~~~~
+~~~~~~~
 
-    This program is free software: you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public License
-    as published by the Free Software Foundation, either version 3 of
-    the License, or (at your option) any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-    You should have received a copy of the GNU Lesser General Public
-    License along with this program.  If not, see
-    <https://www.gnu.org/licenses/>.
+This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+You should have received a copy of the GNU Lesser General Public
+License along with this program.  If not, see
+<https://www.gnu.org/licenses/>.
 """
 
 import asyncio
@@ -41,6 +41,7 @@ def tcpping(
     interval: float = 3,
     is_cli: bool = False,
     print_errors: bool = False,
+    source: str = "",
 ):
     url = ""
     address = strip_http_https(address)
@@ -58,7 +59,7 @@ def tcpping(
     rtts = []
 
     for sequence in range(count):
-        with _Socket() as sock:
+        with _Socket(source) as sock:
             if sequence > 0:
                 time.sleep(interval)
 
@@ -88,6 +89,7 @@ async def async_tcpping(
     count: int = 5,
     interval: float = 3,
     print_errors: bool = False,
+    source: str = "",
 ):
     url = ""
     address = strip_http_https(address)
@@ -105,7 +107,7 @@ async def async_tcpping(
     rtts = []
 
     for sequence in range(count):
-        with AsyncTCPSocket(_Socket()) as sock:
+        with AsyncTCPSocket(_Socket(source)) as sock:
             if sequence > 0:
                 await asyncio.sleep(interval)
 

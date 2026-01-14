@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tcppinglib"
-version = "2.0.4"
+version = "2.0.5"
 description = "An Easy Way to Measure the Connectivity and Latency with TCP Ping"
 keywords = [
     "tcp",

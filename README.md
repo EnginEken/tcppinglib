@@ -45,7 +45,7 @@ It is not only measuring connection overall time to the web server, but also mea
 #### CLI Usage
 ```shell
 $ tcpping --help
-usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] [--print-errors] address
+usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] [-s SOURCE] [--print-errors] address
 ```
 
 #### CLI Arguments
@@ -79,11 +79,18 @@ usage: tcpping [-h] [-p PORT] [-t TIMEOUT] [-c COUNT] [-i INTERVAL] [--print-err
 
 - `-i INTERVAL, --interval INTERVAL`
 
-    The interval between sending each packet in seconds
+    The interval between sending each packet in seconds.
 
     - Type: `float`
     - Default: `1` seconds
 
+- `-s SOURCE, --source SOURCE`
+    
+    The source ip address to send each packet from.
+
+    - Type: `str`
+    - Default: Empty string
+    
 - `--print-errors`
 
     Option to print errors if any occur during ping.
@@ -125,7 +132,7 @@ from tcppinglib import tcpping
 #### Function Parameters
 
 ```python
-tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: float = 3, print_errors: bool = False)
+tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: float = 3, print_errors: bool = False, source: str = "")
 ```
 
 - `address`
@@ -168,6 +175,13 @@ tcpping(address, port: int = 80, timeout: float = 2, count: int = 3, interval: f
 
     - Type: `bool`
     - Default: `False`
+    
+- `source`
+
+    Option to bind socket to preferred source ip address.
+
+    - Type: `str`
+    - Default: Empty String
 
 #### Return Value
 
@@ -216,7 +230,7 @@ from tcppinglib import multi_tcpping
 #### Function Parameters
 
 ```python
-multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False):
+multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False, source: str = ""):
 ```
 
 - `address`
@@ -266,6 +280,13 @@ multi_tcpping(addresses: list, port: int = 80, timeout: float = 2, count: int = 
 
     - Type: `bool`
     - Default: `False`
+    
+- `source`
+
+    Option to bind socket to preferred source ip address.
+
+    - Type: `str`
+    - Default: Empty String
 
 #### Return Value
 
@@ -307,7 +328,7 @@ from tcppinglib import async_tcpping
 #### Function Parameters
 
 ```python
-async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, print_errors: bool = False)
+async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, print_errors: bool = False, source: str = "")
 ```
 
 - `address`
@@ -350,6 +371,13 @@ async_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, inter
 
     - Type: `bool`
     - Default: `False`
+    
+- `source`
+
+    Option to bind socket to preferred source ip address.
+
+    - Type: `str`
+    - Default: Empty String
 
 #### Return Value
 
@@ -385,7 +413,7 @@ from tcppinglib import async_multi_tcpping
 #### Function Parameters
 
 ```python
-async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False)
+async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5, interval: float = 3, concurrent_tasks=50, print_errors: bool = False, source: str = "")
 ```
 
 - `address`
@@ -435,6 +463,13 @@ async_multi_tcpping(address, port: int = 80, timeout: float = 2, count: int = 5,
 
     - Type: `bool`
     - Default: `False`
+    
+- `source`
+
+    Option to bind socket to preferred source ip address.
+
+    - Type: `str`
+    - Default: Empty String
 
 #### Return Value
 
